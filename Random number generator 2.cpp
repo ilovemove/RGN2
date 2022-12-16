@@ -20,25 +20,25 @@ namespace PRINTS
 	{
 		std::uniform_int_distribution<> distr(r_begin, r_end);
 		return distr(gen);
-	} //NOT WORKING, TOO FAST,,,, generates same numbers 
+	} 
 
 	void P0(unsigned int qty, unsigned int range_begin, unsigned int range_end)
 	{
-		for (int i = 0; i < qty; i++)
+		for (unsigned int i = 0; i < qty; i++)
 		{
 			out << random_number_in_range(range_begin, range_end) << std::endl;
 		}
 	}
 	void P1(unsigned int qty, unsigned int range_begin, unsigned int range_end, unsigned int rangecoma_begin, unsigned int rangecoma_end)
 	{
-		for (int i = 0; i < qty; i++)
+		for (unsigned int i = 0; i < qty; i++)
 		{
 			out << random_number_in_range(range_begin, range_end) << "."<< random_number_in_range(rangecoma_begin, rangecoma_end) << std::endl;
 		}
 	}
 	void P2(unsigned int qty, unsigned int range_begin, unsigned int range_end, unsigned int rangecoma_begin, unsigned int rangecoma_end)
 	{
-		for (int i = 0; i < qty; i++)
+		for (unsigned int i = 0; i < qty; i++)
 		{
 			unsigned int temp_aftercoma = random_number_in_range(rangecoma_begin, rangecoma_end);
 			if (temp_aftercoma < 10)
@@ -50,7 +50,7 @@ namespace PRINTS
 	}
 	void P3(unsigned int qty, unsigned int range_begin, unsigned int range_end, unsigned int rangecoma_begin, unsigned int rangecoma_end)
 	{
-		for (int i = 0; i < qty; i++)
+		for (unsigned int i = 0; i < qty; i++)
 		{
 			unsigned int temp_aftercoma = random_number_in_range(rangecoma_begin, rangecoma_end);
 			if (temp_aftercoma < 10)
@@ -66,7 +66,7 @@ namespace PRINTS
 	}
 	void P4(unsigned int qty, unsigned int range_begin, unsigned int range_end, unsigned int rangecoma_begin, unsigned int rangecoma_end)
 	{
-		for (int i = 0; i < qty; i++)
+		for (unsigned int i = 0; i < qty; i++)
 		{
 			unsigned int temp_aftercoma = random_number_in_range(rangecoma_begin, rangecoma_end);
 			if (temp_aftercoma < 10)
@@ -94,6 +94,9 @@ void IgnoreShittyInput()
 }
 void eeend() { std::cout << std::endl; }
 
+
+#pragma endregion RNG
+
 void PrintUSER_INPUT(const unsigned int q, const unsigned int r1, const unsigned int r2, const unsigned int qa, const unsigned int r1qa, const unsigned int r2qa)
 {
 	std::cout << "qty= " << q << std::endl;
@@ -104,7 +107,9 @@ void PrintUSER_INPUT(const unsigned int q, const unsigned int r1, const unsigned
 	std::cout << "rangecoma_end= " << r2qa << std::endl;
 }
 
-#pragma endregion RNG
+// shortening couts for output text
+void output_pizdesh(unsigned int q, unsigned int rb, unsigned int re, unsigned int qa, unsigned int rcb, unsigned int rce);
+void output_pizdesh(unsigned int q, unsigned int rb, unsigned int re);
 
 int main()
 {
@@ -240,39 +245,44 @@ int main()
 	switch (qty_aftercoma)
 	{
 	case 0:
-		std::cout << "Random " << qty << " numbers generated between " << range_begin << " and " << range_end <<
-			" and saved to <RandomNumbers.txt> " << std::endl;
+		output_pizdesh(qty, range_begin, range_end);
 		PRINTS::P0(qty, range_begin, range_end);
 		break;
 	case 1:
 	{
-		std::cout << "Random " << qty << " numbers generated between " << range_begin << " and " << range_end << ", " <<
-			qty_aftercoma << " digits after coma" << " in range from " << rangecoma_begin << " to " << rangecoma_end << " and saved to <RandomNumbers.txt> " << std::endl;
+		output_pizdesh(qty, range_begin, range_end, qty_aftercoma, rangecoma_begin, rangecoma_end);
 		PRINTS::P1(qty, range_begin, range_end, rangecoma_begin, rangecoma_end);
 		break;
 	}
 	case 2:
 	{
-		std::cout << "Random " << qty << " numbers generated between " << range_begin << " and " << range_end << ", " <<
-			qty_aftercoma << " digits after coma" << " in range from " << rangecoma_begin << " to " << rangecoma_end << " and saved to <RandomNumbers.txt> " << std::endl;
+		output_pizdesh(qty, range_begin, range_end, qty_aftercoma, rangecoma_begin, rangecoma_end);
 		PRINTS::P2(qty, range_begin, range_end, rangecoma_begin, rangecoma_end);
 		break;
 	}
 	case 3:
 	{
-		std::cout << "Random " << qty << " numbers generated between " << range_begin << " and " << range_end << ", " <<
-			qty_aftercoma << " digits after coma" << " in range from " << rangecoma_begin << " to " << rangecoma_end << " and saved to <RandomNumbers.txt> " << std::endl;
+		output_pizdesh(qty, range_begin, range_end, qty_aftercoma, rangecoma_begin, rangecoma_end);
 		PRINTS::P3(qty, range_begin, range_end, rangecoma_begin, rangecoma_end);
 		break;
 	}
 	case 4:
 	{
-		std::cout << "Random " << qty << " numbers generated between " << range_begin << " and " << range_end << ", " <<
-			qty_aftercoma << " digits after coma" << " in range from " << rangecoma_begin << " to " << rangecoma_end << " and saved to <RandomNumbers.txt> " << std::endl;
+		output_pizdesh(qty, range_begin, range_end, qty_aftercoma, rangecoma_begin, rangecoma_end);
 		PRINTS::P4(qty, range_begin, range_end, rangecoma_begin, rangecoma_end);
 		break;
 	}
 	}
 	std::cin.get();
 	return 0;
+}
+
+void output_pizdesh(unsigned int q, unsigned int rb, unsigned int re)
+{
+	std::cout << "Random " << q << " numbers generated between " << rb << " and " << re <<
+		" and saved to <RandomNumbers.txt> " << std::endl;
+}void output_pizdesh(unsigned int q, unsigned int rb, unsigned int re, unsigned int qa, unsigned int rcb, unsigned int rce)
+{
+	std::cout << "Random " << q << " numbers generated between " << rb << " and " << re << ", " <<
+		qa << " digits after coma" << " in range from " << rcb << " to " << rce << " and saved to <RandomNumbers.txt> " << std::endl;
 }
